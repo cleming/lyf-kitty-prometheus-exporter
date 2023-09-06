@@ -13,7 +13,7 @@ Owner firstname, lastname, ID and kitty ID are exported as metrics labels.
 
 # Usage
 
-Just replace the kittie's uuid with the right one. You can find it at the end of the URL: https://app.lyf.eu/pot/fr/pot/**(uuid)**
+Just replace the kittie's uuid with the right one. You can find it at the end of the URL: `https://app.lyf.eu/pot/fr/pot/**(uuid)**`
 
 ## With Docker
 
