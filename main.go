@@ -60,17 +60,19 @@ func main() {
 			time.Sleep(time.Second * 5)
 			continue
 		}
-		defer response.Body.Close()
 
 		var responseData Response
 		if err := json.NewDecoder(response.Body).Decode(&responseData); err != nil {
 			fmt.Printf("Failed to parse JSON response: %v\n", err)
+			response.Body.Close()
 			time.Sleep(time.Second * 5)
 			continue
 		}
 
 		contributionsCounterGauge.WithLabelValues(responseData.Kitty.OwnerFirstName, responseData.Kitty.OwnerLastName, responseData.Kitty.OwnerID, responseData.Kitty.ID).Set(float64(responseData.Kitty.ContributionsCounter))
 		totalCollectedAmountGauge.WithLabelValues(responseData.Kitty.OwnerFirstName, responseData.Kitty.OwnerLastName, responseData.Kitty.OwnerID, responseData.Kitty.ID).Set(float64(responseData.Kitty.TotalCollectedAmount))
+
+		response.Body.Close()
 
 		time.Sleep(time.Minute)
 	}
